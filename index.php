@@ -26,6 +26,7 @@
                         $username = $_POST['username'] ?? '';
                         $input = $_POST['blog'] ?? '';
                         $title = $_POST['title'] ?? '';
+                        $image = $_POST['email-url'] ?? '';
                         $fehlerListe = [];
                         $fehlerListeLength;
                         $i;
@@ -51,10 +52,10 @@
                         $fehlerListeLength = sizeof($fehlerListe);
 
                         if($fehlerListeLength === 0){
-                            $stmt = $db->prepare("INSERT INTO `posts` (created_by, post_text, post_title) VALUES(:created_by, :post_text, :post_title) ");
-                            $stmt->execute([':created_by' => $username, ':post_text' => $input, ':post_title' => $title]);
+                            $stmt = $db->prepare("INSERT INTO `posts` (created_by, post_text, post_title, image_url) VALUES(:created_by, :post_text, :post_title, :image_url) ");
+                            $stmt->execute([':created_by' => $username, ':post_text' => $input, ':post_title' => $title, ':image_url' => $image]);
                             
-                            header("location: /../Beitraege.php");
+                            header("location: /../blog/Beitraege.php");
                         }else{
                             echo "<div class=error-box>";
                             for($i = 0; $i < $fehlerListeLength; $i++){
@@ -84,12 +85,18 @@
                     <textarea name="blog" id="blog" rows="10" class="form-control"></textarea>
                 </div>
 
-            </fieldset>
+                <div class="form-group">
+                    <label class="form-label" for="image-url">Füge hier ein Link zum gewünschten Bild ein.</label>
+                    <input class="form-control" type="text" id="image-url" name="image-url">
+                </div>
+
+                </fieldset>
       
-            <div class="form-actions">
-                <input class="btn btn-primary" type="submit" value="Beitrag veröffentlichen" name="speichern">
-                <a href="http://www.google.com" class="btn">Beitrag Abbrechen</a>
-            </div>
+                <div class="form-actions">
+                    <input class="btn btn-primary" type="submit" value="Beitrag veröffentlichen" name="speichern">
+                    <a href="http://www.google.com" class="btn">Beitrag Abbrechen</a>
+                </div>
+                
 
         </form>
     </div>

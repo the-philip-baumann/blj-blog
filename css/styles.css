@@ -73,3 +73,8 @@ fieldset {
     list-style: none;
     margin-left: 5px;
 }
+
+.blog-image{
+    width: 50%;
+    height: 50%;
+}

@@ -8,12 +8,56 @@
 </head>
     <body>
         <div class="wrapper">
+        <form action="Beitraege.php" method="POST">
             <fieldset>
+            <h6>Du bist auf der Suche nach anderen weniger interessanten Blogs, dann finde sie hier. </h3>
                 <legend class="form-legend">Beiträge ansehen</legend>
-                <div class="form-group">
-                    <label for="note" class="form-label">Ihr Beitrag</label>
-                    <textarea name="blog" id="blog" rows="7" class="form-control"></textarea>
-                </div>   
+                <select name="IPv4">
+                    <optgroup label="Basislehrjahr Gang">
+                    <option  value="1"> Nicks Webseite </option>
+                    <option  value="2"> Leos Webseite </option>
+                    <option  value="3"> Philips Webseite </option>
+                    <option  value="4"> Daniels Webseite </option>
+                    <option  value="5"> Colins Webseite </option>
+                    <option  value="6"> Davids Webseite </option>
+                    <option  value="7"> Samuels Webseite </option>
+                    <option  value="7"> Noahs Webseite </option>
+
+                </select>
+
+            <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="Sichern" name="wechseln">
+            </div>
+            </form>
+
+            
+<?php
+            $dbuser = 'guest';
+            $dbpw = 'blj12345';
+            $dbconnection = new PDO('mysql:host=10.20.16.101;dbname=blogdb', $dbuser, $dbpw);
+
+            if(isset($_POST['wechseln'])){
+                $ip = $_POST['IPv4'] ?? '';
+                echo $ip;
+
+                $stmt = $dbconnection->prepare('SELECT * FROM `andereblogs` WHERE id = :id');
+                $stmt->execute([':id' => $ip]);
+                foreach($stmt as $output){
+            
+                
+                
+?>
+
+<?php   
+                }
+            }
+            ?>
+                
+                <a href="http://<?= htmlspecialchars($output['ip'], ENT_QUOTES, "UTF-8");?><?= htmlspecialchars($output['pfad'], ENT_QUOTES, "UTF-8"); ?>">Jetzt Zur Seite wechseln</a>
+                
+
+
+
             </fieldset>
 <?php
             $user = 'root';
@@ -31,8 +75,10 @@
                     <h3><?= htmlspecialchars($output['created_by'], ENT_QUOTES, "UTF-8"); ?></h1>
                     <h4><?= htmlspecialchars($output['post_title'], ENT_QUOTES, "UTF-8"); ?></h1>
                     <p><?= htmlspecialchars($output['post_text'], ENT_QUOTES, "UTF-8"); ?></p>
-                    <p><?= htmlspecialchars($output['created_at'], ENT_QUOTES, "UTF-8"); ?></p> 
+                    <p><?= htmlspecialchars($output['created_at'], ENT_QUOTES, "UTF-8"); ?></p>
+                    <img class="blog-image" src="<?= htmlspecialchars($output['image_url'], ENT_QUOTES, "UTF-8"); ?>"alt="Bild zum Blog">
                 </div>
+
 <?php
             }
 
