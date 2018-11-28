@@ -6,99 +6,86 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <div class="wrapper">
-        <form action="index.php" method="post">
-
+    <body>
+        <div class="wrapper">
+        <form action="index.php" method="POST">
             <fieldset>
-                <legend class="form-legend">Philips insane Blog</legend>
+            <h6>Du bist auf der Suche nach anderen weniger interessanten Blogs, dann finde sie hier. </h3>
+                <legend class="form-legend">Beiträge ansehen</legend>
+                <select name="IPv4">
+                    <optgroup label="Basislehrjahr Gang">
+                    <option  value="1"> Nicks Webseite </option>
+                    <option  value="2"> Leos Webseite </option>
+                    <option  value="3"> Philips Webseite </option>
+                    <option  value="4"> Daniels Webseite </option>
+                    <option  value="5"> Colins Webseite </option>
+                    <option  value="6"> Davids Webseite </option>
+                    <option  value="7"> Samuels Webseite </option>
+                    <option  value="7"> Noahs Webseite </option>
+
+                </select>
+
+            <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="Sichern" name="wechseln">
+            
+            </div>
+            </form>
+
+            
+<?php
+            $dbuser = 'guest';
+            $dbpw = 'blj12345';
+            $dbconnection = new PDO('mysql:host=10.20.16.101;dbname=blogdb', $dbuser, $dbpw);
+
+            if(isset($_POST['wechseln'])){
+                $ip = $_POST['IPv4'] ?? '';
+                echo $ip;
+
+                $stmt = $dbconnection->prepare('SELECT * FROM `andereblogs` WHERE id = :id');
+                $stmt->execute([':id' => $ip]);
+                foreach($stmt as $output){
+            
+                
+                
+?>
+  <a href="http://<?= htmlspecialchars($output['ip'], ENT_QUOTES, "UTF-8");?><?= htmlspecialchars($output['pfad'], ENT_QUOTES, "UTF-8"); ?>">Jetzt Zur Seite wechseln</a>
+<?php   
+                }
+            }
+            ?>
+            
+               <h3>Interessiert selber einen Block zu schreiben, dann tu dies hier.</h3> 
+               <a href="blogerfassung.php"><h4>Jetzt Blog verfassen</h4></a>
+                
 
 
+
+            </fieldset>
+<?php
+            $user = 'root';
+            $pw = '';
+            $db = new PDO('mysql:host=localhost;dbname=BlogDB', $user, $pw);
+
+
+            $stmt = $db->prepare('SELECT * FROM `posts`');
+            $stmt->execute();
+            foreach($stmt as $output){
+
+?>        
+
+                <div class="form-actions">
+                    <h3><?= htmlspecialchars($output['created_by'], ENT_QUOTES, "UTF-8"); ?></h1>
+                    <h4><?= htmlspecialchars($output['post_title'], ENT_QUOTES, "UTF-8"); ?></h1>
+                    <p><?= htmlspecialchars($output['post_text'], ENT_QUOTES, "UTF-8"); ?></p>
+                    <img class="blog-image" src="<?= htmlspecialchars($output['image_url'], ENT_QUOTES, "UTF-8"); ?>"alt="Bild zum Blog">
+                    <p><?= htmlspecialchars($output['created_at'], ENT_QUOTES, "UTF-8"); ?></p>
+                </div>
 
 <?php
-                    $user = 'root';
-                    $pw = '';
-                    $db = new PDO('mysql:host=localhost;dbname=BlogDB', $user, $pw);
-                    
-
-                    if(isset($_POST['speichern']))
-                    {
-                        $username = $_POST['username'] ?? '';
-                        $input = $_POST['blog'] ?? '';
-                        $title = $_POST['title'] ?? '';
-                        $image = $_POST['email-url'] ?? '';
-                        $fehlerListe = [];
-                        $fehlerListeLength;
-                        $i;
-
-
-
-                        if($username === ""){
-                            $fehlerListe[] = " Bitte Username eingeben.";
-                        }else if ($username > 25){
-                            $fehlerListe[] = "Username ist nicht zulässig.";
-                        }
-
-                        if($title === ""){
-                            $fehlerListe[] = "Bitte Titel eingeben.";
-                        }else if ($title  > 25){
-                            $fehlerListe[] = "Titel ist nicht zulässig.";
-                        }
-
-                        if($input === ""){
-                            $fehlerListe[] = "Ihr Beitrag darf nicht leer sein.";
-                        }
-                    
-                        $fehlerListeLength = sizeof($fehlerListe);
-
-                        if($fehlerListeLength === 0){
-                            $stmt = $db->prepare("INSERT INTO `posts` (created_by, post_text, post_title, image_url) VALUES(:created_by, :post_text, :post_title, :image_url) ");
-                            $stmt->execute([':created_by' => $username, ':post_text' => $input, ':post_title' => $title, ':image_url' => $image]);
-                            
-                            header("location: /../blog/Beitraege.php");
-                        }else{
-                            echo "<div class=error-box>";
-                            for($i = 0; $i < $fehlerListeLength; $i++){
-                                
-                                echo "<li class=list> $fehlerListe[$i] </li>";
-                                
-                            }
-                            echo "</div>";
-                        }
-
-                    }
+            }
 
 ?>
 
-                <div class="form-group">
-                    <label class="form-label" for="username">Username</label>
-                    <input class="form-control" type="text" id="username" name="username" placeholder="Max Mustermann">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="title">Titel</label>
-                    <input class="form-control" type="text" id="title" name="title">
-                </div>
-
-                <div class="form-group">
-                    <label for="note" class="form-label">Ihr Beitrag</label>
-                    <textarea name="blog" id="blog" rows="10" class="form-control"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="image-url">Füge hier ein Link zum gewünschten Bild ein.</label>
-                    <input class="form-control" type="text" id="image-url" name="image-url">
-                </div>
-
-                </fieldset>
-      
-                <div class="form-actions">
-                    <input class="btn btn-primary" type="submit" value="Beitrag veröffentlichen" name="speichern">
-                    <a href="http://www.google.com" class="btn">Beitrag Abbrechen</a>
-                </div>
-                
-
-        </form>
-    </div>
-</body>
+        </div>
+    </body>
 </html>
