@@ -1,0 +1,75 @@
+.wrapper {
+    margin-top: 2em;
+    width: 80%;
+    max-width: 550px;
+    margin: 2em auto 0;
+}
+
+.form-title {
+    margin-bottom: .7em;
+}
+
+.form-label {
+    margin-top: .7em;
+    margin-bottom: .3em;
+}
+
+fieldset {
+    margin-top: 2em;
+}
+
+.form-legend {
+    margin-bottom: .75em;
+}
+
+.form-legend + .form-group > .form-label:first-child {
+    margin-top: 0;
+}
+
+.form-actions {
+    padding-top: 1em;
+    border-top: 1px solid #eee;
+    margin-top: 1em;
+    margin-bottom: 2em;
+}
+
+.error-box {
+    color: red;
+    background-color: rgb(250, 220, 220);
+    border: 1px solid red;
+    border-radius: 10px;
+    padding-top: 10px;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: grey;
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.list{
+    list-style: none;
+    margin-left: 5px;
+}
