@@ -35,7 +35,7 @@
 <?php
             $dbuser = 'guest';
             $dbpw = 'blj12345';
-            $dbconnection = new PDO('mysql:host=10.20.16.101;dbname=blogdb', $dbuser, $dbpw);
+            $dbconnection = new PDO('mysql:host=10.20.16.102;dbname=blogdb', $dbuser, $dbpw);
 
             if(isset($_POST['wechseln'])){
                 $ip = $_POST['IPv4'] ?? '';
@@ -77,12 +77,16 @@
                     <h3><?= htmlspecialchars($output['created_by'], ENT_QUOTES, "UTF-8"); ?></h1>
                     <h4><?= htmlspecialchars($output['post_title'], ENT_QUOTES, "UTF-8"); ?></h1>
                     <p><?= htmlspecialchars($output['post_text'], ENT_QUOTES, "UTF-8"); ?></p>
-                    <img class="blog-image" src="<?= htmlspecialchars($output['image_url'], ENT_QUOTES, "UTF-8"); ?>"alt="Bild zum Blog">
+                <?php if(htmlspecialchars($output['image_url'], ENT_QUOTES, "UTF-8") !==''){
+                    ?><img class="blog-image" src="<?= htmlspecialchars($output['image_url'], ENT_QUOTES, "UTF-8"); ?>"alt="Bild zum Blog"><?php
+                }
+            }?>   
+
                     <p><?= htmlspecialchars($output['created_at'], ENT_QUOTES, "UTF-8"); ?></p>
                 </div>
 
 <?php
-            }
+            
 
 ?>
 
