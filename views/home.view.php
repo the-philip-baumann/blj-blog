@@ -28,12 +28,15 @@
     <?php endif; ?>
 
     <h3>Interessiert selber einen Block zu schreiben, dann tu dies hier.</h3> 
-    <a href="blogerfassung.php">
+    <a href="index.php?page=add">
         <h4>Jetzt Blog verfassen</h4>
     </a>
 
     <?php foreach($allPostsTable as $row): ?>
         <div class="form-actions">
+        <?php
+        $row = preg_replace("/(.{80})/mi","$1\n", $row);
+        ?>
             <h3><?= htmlspecialchars($row['created_by'], ENT_QUOTES, "UTF-8"); ?></h1>
             <h4><?= htmlspecialchars($row['post_title'], ENT_QUOTES, "UTF-8"); ?></h1>
             <p><?= htmlspecialchars($row['post_text'], ENT_QUOTES, "UTF-8"); ?></p>
@@ -46,6 +49,10 @@
             <p>
                 <?= htmlspecialchars($row['created_at'], ENT_QUOTES, "UTF-8"); ?>
             </p>
+            <?php if(htmlspecialchars($row['Kommentar'], ENT_QUOTES, "UTF-8") !==''): ?>
+                <p><?= htmlspecialchars($row['Kommentar'], ENT_QUOTES, "UTF-8"); ?></p>
+            <?php endif; ?>
+            <a href="index.php?page=comment">schreibe einen Kommentar</a>
             <?php if(htmlspecialchars($row['image_url'], ENT_QUOTES, "UTF-8") !==''): ?>
                 <img class="blog-image" src="<?= htmlspecialchars($row['image_url'], ENT_QUOTES, "UTF-8"); ?>"alt="Bild zum Blog">
             <?php endif; ?>
