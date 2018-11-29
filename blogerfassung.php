@@ -26,7 +26,7 @@
                         $username = $_POST['username'] ?? '';
                         $input = $_POST['blog'] ?? '';
                         $title = $_POST['title'] ?? '';
-                        $image = $_POST['email-url'] ?? '';
+                        $image = $_POST['image-url'] ?? '';
                         $fehlerListe = [];
                         $fehlerListeLength;
                         $i;
@@ -94,7 +94,7 @@
       
                 <div class="form-actions">
                     <input class="btn btn-primary" type="submit" value="Beitrag veröffentlichen" name="speichern">
-                    <a href="http://www.google.com" class="btn">Beitrag Abbrechen</a>
+                    <a href="index.php" class="btn">Beitrag Abbrechen</a>
                 </div>
                 
 
