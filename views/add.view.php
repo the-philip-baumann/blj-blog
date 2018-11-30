@@ -6,13 +6,13 @@
             <fieldset>
                 <legend class="form-legend">Philips insane Blog</legend>
 
+
+                <?php if(sizeof($fehlerListe) > 0): ?>
                 <?php 
                 echo "<div class=error-box>";
                 ?>
-                <?php if($fehlerListe > 0): ?>
-                <?php foreach($fehlerListe as $fehlerListeLength ): ?>
-                <?php echo "<li class=list> $fehlerListe[$i] </li>";
-                $i++;
+                <?php foreach($fehlerListe as $fehler ): ?>
+                <?php echo "<li class=list> $fehler </li>";
                 ?>
                 <?php endforeach; ?>
                 <?php
