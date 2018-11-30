@@ -6,6 +6,24 @@
             <fieldset>
                 <legend class="form-legend">Philips insane Blog</legend>
 
+                <?php 
+                echo "<div class=error-box>";
+                ?>
+                <?php if($fehlerListe > 0): ?>
+                <?php foreach($fehlerListe as $fehlerListeLength ): ?>
+                <?php echo "<li class=list> $fehlerListe[$i] </li>";
+                $i++;
+                ?>
+                <?php endforeach; ?>
+                <?php
+                echo "</div>";
+                ?>
+                <?php endif; ?>
+                
+                
+
+
+                
                 <div class="form-group">
                     <label class="form-label" for="username">Username</label>
                     <input class="form-control" type="text" id="username" name="username" placeholder="Max Mustermann">
@@ -26,7 +44,7 @@
                     <input class="form-control" type="text" id="image-url" name="image-url">
                 </div>
 
-                </fieldset>
+            </fieldset>
       
                 <div class="form-actions">
                     <input class="btn btn-primary" type="submit" value="Beitrag veröffentlichen" name="speichern">
