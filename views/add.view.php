@@ -20,10 +20,6 @@
                 ?>
                 <?php endif; ?>
                 
-                
-
-
-                
                 <div class="form-group">
                     <label class="form-label" for="username">Username</label>
                     <input class="form-control" type="text" id="username" name="username" placeholder="Max Mustermann">

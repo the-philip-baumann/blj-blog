@@ -5,14 +5,19 @@ $user = 'root';
 $pw = '';
 $db = new PDO('mysql:host=localhost;dbname=BlogDB', $user, $pw);
 
+$fehlerListe = [];
+$fehlerListeLength;
+
+
+if(isset($_POST['btn-comment'])){
+    $post_id = $_POST['id'] ?? '';
+    }
 
 if(isset($_POST['kommentieren']))
 {
     $username = $_POST['username'] ?? '';
     $kommentar = $_POST['blog'] ?? '';
-    $fehlerListe = [];
-    $fehlerListeLength;
-    $i;
+
 
 
 
@@ -22,21 +27,17 @@ if(isset($_POST['kommentieren']))
         $fehlerListe[] = "Username ist nicht zulässig.";
     }
     if($kommentar === ""){
-        $fehlerListe[] = "Ihr Beitrag darf nicht leer sein.";
+        $fehlerListe[] = "Ihr Kommentar darf nicht leer sein.";
     }
 
     $fehlerListeLength = sizeof($fehlerListe);
 
     if($fehlerListeLength === 0){
         
-
-    }else{
-        echo "<div class=error-box>";
-        for($i = 0; $i < $fehlerListeLength; $i++){
-            echo "<li class=list> $fehlerListe[$i] </li>"; 
-        }
-        echo "</div>";
     }
+
 }
+
+
 
 ?>

@@ -27,8 +27,29 @@
     $dbpw = '';
     $db = new PDO('mysql:host=localhost;dbname=BlogDB', $dbuser, $dbpw);
     
-    $stmt = $db->prepare('SELECT * FROM `posts`');
+    $stmt = $db->prepare('SELECT * FROM `posts` order by created_at desc');
     $stmt->execute();
     $allPostsTable= $stmt->fetchAll();
+
+    $thumbsUP = trim($_POST['thumbsUP']??'');
+    $thumpsDown = trim($_POST['thumbsDown']??'');
+    $id = trim($_POST['id']?? '');
+    $thumbsUP++;
+    $thumpsDown++;
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if(isset($_POST['upcount'])){
+            $count = $db->exec("UPDATE `posts` SET up_votes = $thumbsUP WHERE id = $id");
+        }
+
+        else if(isset($_POST['downcount'])){
+            $count = $db->exec("UPDATE `posts` SET down_votes = $thumbsDown WHERE id = $id");
+        }
+        header("Refresh:0; url=index.php?page=home");
+    }
+
+
+
+
 ?>
 
